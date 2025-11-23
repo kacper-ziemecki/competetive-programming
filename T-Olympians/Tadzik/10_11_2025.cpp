@@ -39,4 +39,11 @@ int main(){
   }
   // programowanie
   // pormwne
+
+  int t;
+  cin >> t;
+  for(int i = 0; i < t; i++){
+    //rozwiozanie pojedynczego testu
+    
+  }
 }
