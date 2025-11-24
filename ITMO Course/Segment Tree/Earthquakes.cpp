@@ -37,13 +37,14 @@ struct SegTree{
     set(idx,val,0,0,ss-1);
   }
   int get(int l, int r, int p, int x, int lx, int rx){
-    if(!(l <= lx && rx <= r)) return INT_MAX;
-    if(lx==rx && nodes[x] <= p) return lx;
+    // dbg(l,r,p,lx,rx);
+    if(lx > r || rx < l || nodes[x] > p) return INT_MAX;
+    if(lx==rx) return (nodes[x] <= p ? lx : INT_MAX);
     int mid = (lx+rx)/2;
-    int jeden=INT_MAX,dwa=INT_MAX;
-    if(nodes[2*x+1] <= p) jeden = get(l,r,p,2*x+1,lx,mid);
-    if(nodes[2*x+2] <= p) dwa = get(l,r,p,2*x+2,mid+1,rx);
-    return min(jeden,dwa);
+    int jeden=INT_MAX;
+    jeden = get(l,r,p,2*x+1,lx,mid);
+    if(jeden != INT_MAX) return jeden;
+    return get(l,r,p,2*x+2,mid+1,rx);
   }
   int get(int l, int r, int p){
     return get(l,r,p,0,0,ss-1);
@@ -56,8 +57,8 @@ void solve(){
   for(int i = 0; i < m; i++){
     cin >> t;
     if(t == 1){
-      cin >> i >> h;
-      segtree.set(i,h);
+      cin >> idx >> h;
+      segtree.set(idx,h);
     } else{
       cin >> lewo >> prawo >> p;
       prawo--;
@@ -66,7 +67,9 @@ void solve(){
       while(indeks != INT_MAX){
         segtree.set(indeks, INT_MAX);
         res++;
+        indeks = segtree.get(lewo,prawo,p);
       }
+      // dbg(lewo,prawo,p);
       cout << res << endl;
     }
   }
