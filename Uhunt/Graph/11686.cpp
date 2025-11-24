@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+#define ll long long
+#define ull unsigned long long
+#define ld long double
+void dbg_out() { cout << endl; }
+template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
+#define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
+
+
+
+void solve(ll n, ll m){
+  vector<vector<ll>> adj(n+1);
+  vector<ll> in_degree(n+1), res;
+  priority_queue<ll, vector<ll>, greater<ll>> pq;
+  ll u,v;
+  for(ll i = 0; i < m; i++){
+    cin >> u >> v;
+    adj[u].push_back(v);
+    in_degree[v]++;
+  }
+  for(ll i = 1; i <= n; i++) if(in_degree[i] == 0) pq.push(i);
+  while(!pq.empty()){
+    ll u = pq.top(); pq.pop();
+    res.push_back(u);
+    for(ll v : adj[u]) if(--in_degree[v] == 0) pq.push(v);
+  }
+  if(res.size() == n){
+    for(auto el : res) cout << el << endl;
+  } else{
+    cout << "IMPOSSIBLE\n";
+  }
+}
+ 
+int main()
+{
+ 
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  cout.tie(0);
+ 
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
+
+  ll n,m;
+  cin >> n >> m;
+  while(!(n == 0 && m == 0)){
+    solve(n, m);
+    cin >> n >> m;
+  }
+}

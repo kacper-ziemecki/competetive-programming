@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+#define ll long long int 
+
+void solve()
+{
+  int a,b;
+  cin >> a >> b;
+  vector<int> list(a,0);
+  for(auto &el : list) cin >> el;
+  sort(list.begin(), list.end());
+  cout << list[(a+b)/2] << endl;
+}
+
+int main()
+{
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  cout.tie(0);
+  //freopen("input.txt", "r", stdin);
+  int t;
+  cin >> t;
+  while(t--) solve();
+}
