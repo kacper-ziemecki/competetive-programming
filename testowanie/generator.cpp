@@ -16,10 +16,10 @@ int main(){
 	cin >> seed; 
 	srand(seed);
 	
-	int n = rnd(1,10);
+	int n = rnd(1,40);
 	cout << n << endl;
-	for(int i = 0; i < n; i++) cout << rnd(-20,20) << ' ';
+	for(int i = 0; i < n; i++) cout << rnd(1,3) << ' ';
 	cout << endl;
-	for(int i = 0; i < n; i++) cout << rnd(-20,20) << ' ';
+	for(int i = 0; i < n; i++) cout << rnd(1,3) << ' ';
 	cout << endl;
 }
