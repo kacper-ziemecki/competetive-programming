@@ -8,54 +8,55 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-int n;
-const int maxn = 2e5+1, lg = log2(maxn)+1;
-int a[maxn], b[maxn], dist[maxn];
-int sparse_max_a[lg][maxn], sparse_min_b[lg][maxn];
+ll n;
+const ll maxn = 2e5+1, lg = log2(maxn)+1;
+ll a[maxn], b[maxn], dist[maxn];
+ll sparse_max_a[lg][maxn], sparse_min_b[lg][maxn];
 
-int get_max(int l, int r){
-  int k = dist[r-l+1];
-  int max_a = max(sparse_max_a[k][l], sparse_max_a[k][r-(1<<k)+1]);
+ll get_max(ll l, ll r){
+  ll k = dist[r-l+1];
+  ll max_a = max(sparse_max_a[k][l], sparse_max_a[k][r-(1<<k)+1]);
   return max_a;
 }
-int get_min(int l, int r){
-  int k = dist[r-l+1];
-  int min_b = min(sparse_min_b[k][l], sparse_min_b[k][r-(1<<k)+1]);
+ll get_min(ll l, ll r){
+  ll k = dist[r-l+1];
+  ll min_b = min(sparse_min_b[k][l], sparse_min_b[k][r-(1<<k)+1]);
   return min_b;
 }
-bool check1(int l, int srodek){
-  int max_a = get_max(l, srodek);
-  int min_b = get_min(l, srodek);
+
+bool check1(ll l, ll srodek){
+  ll max_a = get_max(l, srodek);
+  ll min_b = get_min(l, srodek);
   // dbg(l,srodek,max_a,min_b);
   if(max_a <= min_b) return true;
   return false;
 }
 
-bool check2(int l, int srodek){
-  int max_a = get_max(l, srodek);
-  int min_b = get_min(l, srodek);
+bool check2(ll l, ll srodek){
+  ll max_a = get_max(l, srodek);
+  ll min_b = get_min(l, srodek);
   if(max_a >= min_b) return true;
   return false;
 }
 
-int helper(int l, int r){
+ll helper(ll l, ll r){
   if(l==r) return (a[l] == b[l] ? 1 : 0);
 
-  int mid = (l+r)/2;
-  int res = helper(l,mid) + helper(mid+1,r);
+  ll mid = (l+r)/2;
+  ll res = helper(l,mid) + helper(mid+1,r);
 
-  for(int i = l; i <= mid; i++){
-    int idxLewo,idxPrawo;
-    int lewo = mid+1, prawo = r;
+  for(ll i = l; i <= mid; i++){
+    ll idxLewo,idxPrawo;
+    ll lewo = mid+1, prawo = r;
     while(lewo < prawo){
-      int srodek = (lewo+prawo+1)/2;
+      ll srodek = (lewo+prawo+1)/2;
       if(check1(i, srodek)) lewo = srodek;
       else prawo = srodek-1;
     }
     idxPrawo = lewo;
     lewo = mid+1, prawo = r;
     while(lewo < prawo){
-      int srodek = (lewo+prawo)/2;
+      ll srodek = (lewo+prawo)/2;
       if(check2(i, srodek)) prawo = srodek;
       else lewo = srodek+1;
     }
@@ -68,21 +69,21 @@ int helper(int l, int r){
 
 void solve(){
   cin >> n;
-  for(int i = 0; i < n; i++){
+  for(ll i = 0; i < n; i++){
     cin >> a[i];
     sparse_max_a[0][i] = a[i];
   }
-  for(int i = 0; i < n; i++){
+  for(ll i = 0; i < n; i++){
     cin >> b[i];
     sparse_min_b[0][i] = b[i];
   }
 
   dist[0] = dist[1] = 0;
-  for(int i = 2; i <= n; i++) dist[i] = dist[i/2]+1;
+  for(ll i = 2; i <= n; i++) dist[i] = dist[i/2]+1;
 
 
-  for(int i = 1; i < lg; i++){
-    for(int j = 0; j+(1<<i) <= n; j++){
+  for(ll i = 1; i < lg; i++){
+    for(ll j = 0; j+(1<<i) <= n; j++){
       sparse_max_a[i][j] = max(sparse_max_a[i-1][j], sparse_max_a[i-1][j+(1<<(i-1))]);
       sparse_min_b[i][j] = min(sparse_min_b[i-1][j], sparse_min_b[i-1][j+(1<<(i-1))]);
     }

@@ -92,10 +92,10 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }
