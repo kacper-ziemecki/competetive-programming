@@ -60,17 +60,18 @@ struct SegTree{
   ll get(ll l, ll r){
     return get(l,r,0,0,ss-1);
   }
-  // void print(){
-  //   for(auto el : prop) cout << el << ' ';
-  //   cout << endl;
-  //   for(auto el : sums) cout << el << ' ';
-  //   cout << endl; 
-  // }
+  void print(){
+    for(auto el : prop) cout << el << ' ';
+    cout << endl;
+    for(auto el : sums) cout << el << ' ';
+    cout << endl; 
+  }
 };
 
 void solve(){
   cin >> n >> m;
   SegTree segtree(n);
+  for(int i = 0; i < n; i++) segtree.get(i,i);
   for(int i = 0; i < m; i++){
     cin >> t;
     if(t == 1){
@@ -80,6 +81,7 @@ void solve(){
     } else{
       cin >> l >> r;
       r--;
+      // segtree.print();
       cout << segtree.get(l,r) << endl;
     }
   }

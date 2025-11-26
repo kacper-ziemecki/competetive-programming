@@ -16,6 +16,20 @@ int main(){
 	cin >> seed; 
 	srand(seed);
 	
-	int n = rnd(1,10), m = rnd(1,10);
+	int n = rnd(1,10), m = rnd(1,3);
 	cout << n << ' ' << m << endl;
+	for(int i = 0; i < m; i++){
+		int t = rnd(1,2);
+		cout << t << ' ';
+		if(t == 1){
+			int l = rnd(0, n-1);
+			int r = rnd(l+1, n);
+			int v = rnd(1, 10);
+			cout << l << ' ' << r << ' ' << v << endl;
+		} else{
+			int l = rnd(0, n-1);
+			int r = rnd(l+1, n);
+			cout << l << ' ' << r << endl;
+		}
+	}
 }
