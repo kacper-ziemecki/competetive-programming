@@ -20,7 +20,8 @@ void solve(){
     if(t==1){
       cin >> l >> r >> v;
       for(int j = l; j < r; j++) lista[j] += v;
-
+      for(auto el : lista) cout << el << ' ';
+      cout << endl;
     } else{
       cin >> l >> r;
       int res = 0;
@@ -37,10 +38,10 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }

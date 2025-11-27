@@ -21,7 +21,7 @@ struct SegTree{
     prop.assign(ss<<1, 0);
   }
   void propagate(int x){
-    nodes.at(x) += prop.at(x);
+    nodes[x] += prop[x];
     if(x < ss-1){
       prop.at(2*x+1) += prop.at(x);
       prop.at(2*x+2) += prop.at(x);
@@ -57,6 +57,12 @@ struct SegTree{
   int get(int l, int r){
     return get(l,r,0,0,ss-1);
   }
+  void print(){
+    for(auto el : nodes) cout << el << ' ';
+    cout << endl;
+    for(auto el : prop) cout << el << ' ';
+    cout << endl;
+  }
 };
 
 void solve(){
@@ -68,10 +74,12 @@ void solve(){
       cin >> l >> r >> v;
       // dbg(t,l,r,v);
       segtree.set(l,r-1,v);
+      segtree.print();
     } else{
       cin >> l >> r;
       // dbg(t,l,r);
       cout << segtree.get(l, r-1) << endl;
+      segtree.print();
     }
   }
 }
@@ -83,10 +91,10 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }

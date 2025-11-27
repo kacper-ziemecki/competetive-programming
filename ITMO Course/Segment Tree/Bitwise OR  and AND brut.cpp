@@ -12,6 +12,7 @@ int n,m;
 int t,l,r,v;
 
 
+
 void solve(){
   cin >> n >> m;
   vector<int> lista(n, 0);
@@ -19,12 +20,11 @@ void solve(){
     cin >> t;
     if(t==1){
       cin >> l >> r >> v;
-      for(int j = l; j < r; j++) lista[j] += v;
-
+      for(int j = l; j < r; j++) lista[j] |= v;
     } else{
       cin >> l >> r;
-      int res = 0;
-      for(int j = l; j < r; j++) res += lista[j];
+      int res = ~0;
+      for(int j = l; j < r; j++) res &= lista[j];
       cout << res << endl;
     }
   }
@@ -37,10 +37,10 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }

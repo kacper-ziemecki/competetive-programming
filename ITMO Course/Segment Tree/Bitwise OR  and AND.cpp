@@ -12,26 +12,26 @@ int n,m;
 int t,l,r,v;
 
 struct SegTree{
-  vector<int> nodes,prop;
+  vector<int> nodes, prop;
   int ss;
   SegTree(int n){
     ss = 1;
-    while(ss < n) ss <<= 1;
+    while(ss < n) ss<<=1;
     nodes.assign(ss<<1, 0);
     prop.assign(ss<<1, 0);
   }
   void propagate(int x){
-    nodes.at(x) += prop.at(x);
+    nodes[x] |= prop[x];
     if(x < ss-1){
-      prop.at(2*x+1) += prop.at(x);
-      prop.at(2*x+2) += prop.at(x);
+      prop[2*x+1] |= prop[x];
+      prop[2*x+2] |= prop[x];
     }
-    prop.at(x) = 0;
+    prop[x] = 0;
   }
   void set(int l, int r, int v, int x, int lx, int rx){
     propagate(x);
     if(l <= lx && rx <= r){
-      prop.at(x) += v;
+      prop[x] |= v;
       propagate(x);
       return;
     }
@@ -39,23 +39,30 @@ struct SegTree{
     int mid = (lx+rx)/2;
     set(l,r,v,2*x+1,lx,mid);
     set(l,r,v,2*x+2,mid+1,rx);
-    nodes.at(x) = nodes.at(2*x+1) + nodes.at(2*x+2);
+    nodes[x] = nodes[2*x+1] & nodes[2*x+2];
   }
   void set(int l, int r, int v){
     set(l,r,v,0,0,ss-1);
   }
   int get(int l, int r, int x, int lx, int rx){
     propagate(x);
+    // dbg(x,lx,rx,nodes[x],prop[x]);
     if(l <= lx && rx <= r) return nodes[x];
-    if(r < lx || rx < l) return 0;
+    if(r < lx || rx < l) return ~0; //wszystkie bity ustawione
     int mid = (lx+rx)/2;
     int jeden = get(l,r,2*x+1,lx,mid);
     int dwa = get(l,r,2*x+2,mid+1,rx);
-    nodes.at(x) = nodes.at(2*x+1) + nodes.at(2*x+2);
-    return jeden+dwa;
+    nodes[x] = nodes[2*x+1] & nodes[2*x+2];
+    return jeden & dwa;
   }
   int get(int l, int r){
     return get(l,r,0,0,ss-1);
+  }
+  void print(){
+    for(auto el : nodes) cout << el << ' ';
+    cout << endl;
+    for(auto el : prop) cout << el << ' ';
+    cout << endl;
   }
 };
 
@@ -66,12 +73,13 @@ void solve(){
     cin >> t;
     if(t==1){
       cin >> l >> r >> v;
-      // dbg(t,l,r,v);
       segtree.set(l,r-1,v);
+      // segtree.print();
     } else{
       cin >> l >> r;
-      // dbg(t,l,r);
-      cout << segtree.get(l, r-1) << endl;
+      cout << segtree.get(l,r-1) << endl;
+      // for(int j = l; j < r; j++) cout << segtree.get(j,j) << ' ';
+      // segtree.print();
     }
   }
 }
@@ -83,10 +91,10 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }
