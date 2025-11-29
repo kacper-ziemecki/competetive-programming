@@ -10,14 +10,27 @@ struct Point{
   int x,y;
 };
 
+Point a; //moje odniesienie
+
+
 double cross(Point a, Point b, Point c){
   return (a.x-b.x)*(a.y-c.y)-(a.x-c.x)*(a.y-c.y);
 }
 
+bool sprawdzanie(Point& b, Point& c){
+  int cross_product = cross(a,b,c);
+  if(cross_product == 0){
+    return (a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y) < (a.x-c.x)*(a.x-c.x)+(a.y-c.y)*(a.y-c.y);
+  }
+  return cross_product < 0;
+}
+
 void angle_sort(vector<Point> points){
-  Point a = *min_element(points.begin(), points.end(), [](Point& b, Point& c) {
+  a = *min_element(points.begin(), points.end(), [](Point& b, Point& c) {
         return make_pair(b.y, b.x) < make_pair(c.y, c.x);
   });
+
+  sort(points.begin(), points.end(), sprawdzanie);
   sort(points.begin(), points.end(), [&a](Point& b, Point& c){
     int cross_product = cross(a,b,c);
     if(cross_product == 0){
