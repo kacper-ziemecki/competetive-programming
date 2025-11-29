@@ -8,38 +8,38 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-ll n,m;
-ll t,l,r,v;
+ll n,m,t,l,r,v;
 
 struct SegTree{
   vector<ll> nodes,prop;
   ll ss;
   SegTree(ll n){
     ss = 1;
-    while(ss < n) ss <<= 1;
+    while(ss < n) ss<<=1;
     nodes.assign(ss<<1, 0);
-    prop.assign(ss<<1, 0);
+    prop.assign(ss<<1, -1);
   }
   void propagate(ll x, ll lx, ll rx){
-    nodes[x] += prop[x] * (rx-lx+1);
+    if(prop[x] == -1) return;
+    nodes[x] = prop[x] * (rx-lx+1);
     if(x < ss-1){
-      prop.at(2*x+1) += prop.at(x);
-      prop.at(2*x+2) += prop.at(x);
+      prop[2*x+1] = prop[x];
+      prop[2*x+2] = prop[x];
     }
-    prop.at(x) = 0;
+    prop[x] = -1;
   }
   void set(ll l, ll r, ll v, ll x, ll lx, ll rx){
     propagate(x,lx,rx);
     if(l <= lx && rx <= r){
-      prop.at(x) += v;
+      prop[x] = v;
       propagate(x,lx,rx);
       return;
     }
-    if(r < lx || rx < l) return;
+    if(l > rx || r  < lx) return;
     ll mid = (lx+rx)/2;
     set(l,r,v,2*x+1,lx,mid);
     set(l,r,v,2*x+2,mid+1,rx);
-    nodes.at(x) = nodes.at(2*x+1) + nodes.at(2*x+2);
+    nodes[x] = nodes[2*x+1] + nodes[2*x+2];
   }
   void set(ll l, ll r, ll v){
     set(l,r,v,0,0,ss-1);
@@ -47,21 +47,15 @@ struct SegTree{
   ll get(ll l, ll r, ll x, ll lx, ll rx){
     propagate(x,lx,rx);
     if(l <= lx && rx <= r) return nodes[x];
-    if(r < lx || rx < l) return 0;
+    if(l > rx || r < lx) return 0;
     ll mid = (lx+rx)/2;
     ll jeden = get(l,r,2*x+1,lx,mid);
     ll dwa = get(l,r,2*x+2,mid+1,rx);
-    nodes.at(x) = nodes.at(2*x+1) + nodes.at(2*x+2);
+    nodes[x] = nodes[2*x+1] + nodes[2*x+2];
     return jeden+dwa;
   }
   ll get(ll l, ll r){
     return get(l,r,0,0,ss-1);
-  }
-  void print(){
-    for(auto el : nodes) cout << el << ' ';
-    cout << endl;
-    for(auto el : prop) cout << el << ' ';
-    cout << endl;
   }
 };
 
@@ -70,16 +64,12 @@ void solve(){
   SegTree segtree(n);
   for(ll i = 0; i < m; i++){
     cin >> t;
-    if(t==1){
+    if(t == 1){
       cin >> l >> r >> v;
-      // dbg(t,l,r,v);
       segtree.set(l,r-1,v);
-      // segtree.print();
     } else{
       cin >> l >> r;
-      // dbg(t,l,r);
-      cout << segtree.get(l, r-1) << endl;
-      // segtree.print();
+      cout << segtree.get(l,r-1) << endl;
     }
   }
 }

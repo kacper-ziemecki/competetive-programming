@@ -20,8 +20,8 @@ struct SegTree{
     nodes.assign(ss<<1, 0);
     prop.assign(ss<<1, 0);
   }
-  void propagate(int x){
-    nodes.at(x) += prop.at(x);
+  void propagate(int x, int lx, int rx){
+    nodes[x] += prop[x] * (rx-lx+1);
     if(x < ss-1){
       prop.at(2*x+1) += prop.at(x);
       prop.at(2*x+2) += prop.at(x);
@@ -29,10 +29,10 @@ struct SegTree{
     prop.at(x) = 0;
   }
   void set(int l, int r, int v, int x, int lx, int rx){
-    propagate(x);
+    propagate(x,lx,rx);
     if(l <= lx && rx <= r){
       prop.at(x) += v;
-      propagate(x);
+      propagate(x,lx,rx);
       return;
     }
     if(r < lx || rx < l) return;
@@ -45,7 +45,7 @@ struct SegTree{
     set(l,r,v,0,0,ss-1);
   }
   int get(int l, int r, int x, int lx, int rx){
-    propagate(x);
+    propagate(x,lx,rx);
     if(l <= lx && rx <= r) return nodes[x];
     if(r < lx || rx < l) return 0;
     int mid = (lx+rx)/2;
@@ -56,6 +56,12 @@ struct SegTree{
   }
   int get(int l, int r){
     return get(l,r,0,0,ss-1);
+  }
+  void print(){
+    for(auto el : nodes) cout << el << ' ';
+    cout << endl;
+    for(auto el : prop) cout << el << ' ';
+    cout << endl;
   }
 };
 
@@ -68,10 +74,12 @@ void solve(){
       cin >> l >> r >> v;
       // dbg(t,l,r,v);
       segtree.set(l,r-1,v);
+      // segtree.print();
     } else{
       cin >> l >> r;
       // dbg(t,l,r);
       cout << segtree.get(l, r-1) << endl;
+      // segtree.print();
     }
   }
 }
