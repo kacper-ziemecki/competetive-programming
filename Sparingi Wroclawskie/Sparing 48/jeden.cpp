@@ -21,7 +21,6 @@ void solve(){
   cin >> n;
   while(napis.size() < n){
     a = zapytaj(napis+'1');
-
     if(a) napis = napis+'1';
     else napis = napis+'0';
   }
