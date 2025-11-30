@@ -47,10 +47,11 @@ struct SegTree{
   }
   ll get(ll k, ll x, ll lx, ll rx){
     propagate(x,lx,rx);
+    // dbg(k,x,lx,rx);
     if(lx==rx) return lx;
     ll mid = (lx+rx)/2;
     propagate(2*x+1, lx, mid);
-    if(nodes[2*x+1] <= k) return get(k,2*x+1,lx,mid);
+    if(nodes[2*x+1] >= k) return get(k,2*x+1,lx,mid);
     return get(k-nodes[2*x+1],2*x+2,mid+1,rx);
   }
   ll get(ll k){
@@ -68,7 +69,7 @@ void solve(){
       segtree.set(l,r-1);
     } else{
       cin >> k;
-      cout << segtree.get(k) << endl;
+      cout << segtree.get(k+1) << endl;
     }
   }
 }
