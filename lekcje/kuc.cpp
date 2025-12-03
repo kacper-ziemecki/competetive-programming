@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "ckuclib.h"
 using namespace std;
 // #define endl "\n"
-#define pb push_back
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -10,14 +10,21 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
 void solve(){
-  int x;
-  cout << 1 << endl;
-  cin >> x;
-  if(x == 2){
-    cout << 3 << endl;
-  } else if(x == 3){
-    cout << 2 << endl;
-  } 
+  int n,e,one,two,three;
+  n = dajn();
+  e = daje();
+  vector<int> koszt(n+1), energia(n+1); // zamienic na long long
+  koszt[0] = 0;
+  energia[0] = e;
+  koszt[1] = jedno(1);
+  energia[1] = e+1;
+  for(int i = 2; i <= n; i++){
+    one = jedno(i);
+    two = dwa(i);
+    three = polowa(i);
+    
+
+  }
 }
 
 int main()
@@ -32,6 +39,5 @@ int main()
 //   freopen("../../out.out", "w", stdout);
 // #endif
 
-  
   solve();
 }

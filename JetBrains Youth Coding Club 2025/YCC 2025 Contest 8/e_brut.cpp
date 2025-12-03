@@ -8,12 +8,12 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-ll n,m,k,tim=0;
-const ll maxn = 1e5+1;
-ll cords[maxn][2];
-map<pair<pair<ll,ll>,pair<ll,ll>>, ll> dist;
+int n,m,k,tim=0;
+const int maxn = 1e5+1;
+int cords[maxn][2];
+map<pair<pair<int,int>,pair<int,int>>, int> dist;
 
-void change_dir(pair<ll,ll> &_od, pair<ll,ll> &dir){
+void change_dir(pair<int,int> &_od, pair<int,int> &dir){
   if(_od.first == 0 || _od.first == n){
     dir.first = -dir.first;
   }
@@ -22,9 +22,9 @@ void change_dir(pair<ll,ll> &_od, pair<ll,ll> &dir){
   }
 }
 
-pair<ll,ll> go_to(pair<ll,ll> &_od, pair<ll,ll> &dir){
-  pair<ll,ll> _do;
-  ll distI,distJ;
+pair<int,int> go_to(pair<int,int> &_od, pair<int,int> &dir){
+  pair<int,int> _do;
+  int distI,distJ;
   if(dir.first < 0) distI = _od.first;
   else distI = n-_od.first;
   if(dir.second < 0) distJ = _od.second;
@@ -33,19 +33,19 @@ pair<ll,ll> go_to(pair<ll,ll> &_od, pair<ll,ll> &dir){
   change_dir(_do,dir);
   return _do;
 }
-ll odleglosc(pair<ll,ll> a, pair<ll,ll> b){
+int odleglosc(pair<int,int> a, pair<int,int> b){
   return abs(a.first - b.first); 
 }
 
 void solve(){
   cin >> n >> m >> k;
-  for(ll i = 0; i < k; i++){
+  for(int i = 0; i < k; i++){
     cin >> cords[i][0] >> cords[i][1];
   }
-  pair<ll,ll> _od = {0,0};
-  pair<ll,ll> dir = {1,1};
-  pair<ll,ll> _do = go_to(_od,dir);
-  ll distance = 0;
+  pair<int,int> _od = {0,0};
+  pair<int,int> dir = {1,1};
+  pair<int,int> _do = go_to(_od,dir);
+  int distance = 0;
   while(dist.count({_od,_do}) == 0){
     // dbg(_od.first,_od.second,_do.first,_do.second);
     // dbg(dir.first,dir.second);
@@ -55,21 +55,21 @@ void solve(){
     _od = _do;
     _do = go_to(_od,dir);
   }
-  for(ll i = 0; i < k; i++){
-    ll res = LLONG_MAX;
-    pair<ll,ll> cur = {cords[i][0], cords[i][1]};
-    pair<ll,ll> dir1 = {1, -1}, dir2 = {-1, 1};
-    pair<pair<ll,ll>,pair<ll,ll>> jeden = {go_to(cur, dir1), go_to(cur, dir2)};
+  for(int i = 0; i < k; i++){
+    int res = INT_MAX;
+    pair<int,int> cur = {cords[i][0], cords[i][1]};
+    pair<int,int> dir1 = {1, -1}, dir2 = {-1, 1};
+    pair<pair<int,int>,pair<int,int>> jeden = {go_to(cur, dir1), go_to(cur, dir2)};
     if(dist.count(jeden)) res = min(res, dist[jeden]+odleglosc(jeden.first,cur));
-    pair<pair<ll,ll>,pair<ll,ll>> dwa = {jeden.second,jeden.first};
+    pair<pair<int,int>,pair<int,int>> dwa = {jeden.second,jeden.first};
     if(dist.count(dwa)) res = min(res, dist[dwa]+odleglosc(dwa.first,cur));
     dir1 = {1, 1}; dir2 = {-1, -1};
-    pair<pair<ll,ll>,pair<ll,ll>> trzy = {go_to(cur,dir1), go_to(cur,dir2)};
+    pair<pair<int,int>,pair<int,int>> trzy = {go_to(cur,dir1), go_to(cur,dir2)};
     if(dist.count(trzy)) res = min(res, dist[trzy]+odleglosc(trzy.first,cur));
-    pair<pair<ll,ll>,pair<ll,ll>> cztery = {trzy.second, trzy.first};
+    pair<pair<int,int>,pair<int,int>> cztery = {trzy.second, trzy.first};
     if(dist.count(cztery)) res = min(res, dist[cztery]+odleglosc(cztery.first,cur));
     
-    if(res == LLONG_MAX) cout << -1 << endl;
+    if(res == INT_MAX) cout << -1 << endl;
     else cout << res << endl;
   }
 }
