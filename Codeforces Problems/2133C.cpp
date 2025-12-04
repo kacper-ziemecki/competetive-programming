@@ -9,40 +9,15 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-stack<int> res;
-vector<int> cur;
+vector<int> res;
 map<int, vector<int>> mp;
-int n,x,dlugosc,poczotek;
-
-bool helper(int l){
-  if(l == 0){
-    cur.clear();
-    while(!res.empty()){
-      cur.pb(res.top());
-      res.pop();
-    }
-    reverse(cur.begin(), cur.end());
-    for(int i = 0; i < cur.size(); i++) res.push(cur[i]);
-    cout << "? " << poczotek << ' ' << cur.size() << ' ';
-    for(auto el : cur) cout << el << ' ';
-    cout << endl;
-    cin >> x;
-    return (x == cur.size());
-  }
-  for(auto el : mp[l]){
-    res.push(el);
-    if(helper(l-1)) return true;
-    res.pop();  
-  }
-  dbg(l,false);
-  return false;
-}
+int n,x,dlugosc;
 
 void solve(){
   dlugosc=0;
   cin >> n;
   mp.clear();
-  while(!res.empty()) res.pop();
+  res.clear();
   for(int i = 1; i <= n; i++){
     cout << "? " << i << ' ';
     cout << n << ' ';
@@ -54,18 +29,20 @@ void solve(){
     mp[x].pb(i);
     dlugosc = max(dlugosc, x);
   }
-  poczotek = mp[dlugosc][0];
-  res.push(poczotek);
-  helper(dlugosc-1);
+  res.pb(mp[dlugosc][0]);
 
-  cur.clear();
-  while(!res.empty()){
-    cur.pb(res.top());
-    res.pop();
+  for(int dl = dlugosc-1; dl > 0; dl--){
+    for(auto el : mp[dl]){
+      cout << "? " << res.back() << " 2 " << res.back() << ' ' << el << endl;
+      cin >> x;
+      if(x == 2){
+        res.pb(el);
+        break;
+      }
+    }
   }
-  reverse(cur.begin(), cur.end());
-  cout << "! " << cur.size() << ' ';
-  for(auto el : cur) cout << el << ' ';
+  cout << "! " << dlugosc;
+  for(auto el : res) cout << ' ' << el;
   cout << endl;
 }
 
