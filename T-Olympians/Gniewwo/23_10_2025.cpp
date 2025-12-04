@@ -8,36 +8,28 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout
 
 struct Point{
   int x,y;
+  Point(){
+    x=0;
+    y=0;
+  }
 };
 
-Point a; //moje odniesienie
+Point a; //odniesienie
 
-
-double cross(Point a, Point b, Point c){
-  return (a.x-b.x)*(a.y-c.y)-(a.x-c.x)*(a.y-c.y);
+int cross(Point a, Point b, Point c){
+  return (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y);
 }
 
 bool sprawdzanie(Point& b, Point& c){
   int cross_product = cross(a,b,c);
-  if(cross_product == 0){
-    return (a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y) < (a.x-c.x)*(a.x-c.x)+(a.y-c.y)*(a.y-c.y);
+  if(cross_product == 0){ // jezeli są pod tym samym kątem
+    return (a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y) < (a.x-c.x)*(a.x-c.x)+(a.y-c.y)*(a.y-c.y); // zwykły pitagoras
   }
   return cross_product < 0;
 }
 
-void angle_sort(vector<Point> points){
-  a = *min_element(points.begin(), points.end(), [](Point& b, Point& c) {
-        return make_pair(b.y, b.x) < make_pair(c.y, c.x);
-  });
-
+void angle_sort(vector<Point> &points){
   sort(points.begin(), points.end(), sprawdzanie);
-  sort(points.begin(), points.end(), [&a](Point& b, Point& c){
-    int cross_product = cross(a,b,c);
-    if(cross_product == 0){
-      return (a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y) < (a.x-c.x)*(a.x-c.x)+(a.y-c.y)*(a.y-c.y);
-    }
-    return cross_product < 0;
-  });
 }
 
 int main()
@@ -56,7 +48,7 @@ int main()
   for(int i = 0; i < 2*n; i++){
     cin >> points[i].x >> points[i].y;
   }
-
+  angle_sort(points);
   for(int i = 0; i < points.size(); i++) cout << points[i].x << ' ' << points[i].y << endl;
   cout << endl;
 }
