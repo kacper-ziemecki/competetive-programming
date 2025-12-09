@@ -9,7 +9,6 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-ll plusik = 1e18+1;
 ll liczba;
 
 void solve(){
@@ -18,51 +17,38 @@ void solve(){
   cin >> n;
   cout << "digit" << endl; cin >> a;
   cout << "digit" << endl;  cin >> a;
-  cout << "div " << 2 << endl;
-  cin >> a;
+  cout << "div " << 2 << endl; cin >> a;
   if(a){
-    vector<ll> lista = {2,4,6};
+    vector<ll> lista = {8,6,4};
     for(auto el : lista){
-      cout << "add " << plusik-el << endl;
-      cin >> a;
+      cout << "add " << -el+1 << endl; cin >> a;
       if(a){
         flag = true;
-        liczba = el;
-        // dbg(el);
         break;
       }
     }
     if(!flag){
-      liczba = 8;
-      cout << "add " << n-8 << endl;
-      cin >> a;
-      cout << "!" << endl;
-      cin >> a;
+      cout << "add " << -1 << endl; cin >> a;
+      cout << "!" << endl; cin >> a;
       return;
       // nie ustawiamy na plusik
     }
   } else{
-    cout << "div 3" << endl;
-    cin >> a;
+    cout << "div 3" << endl; cin >> a;
     if(a){
-      cout << "add " << plusik-3 << endl;
-      cin >> a;
+      cout << "add " << plusik-3 << endl; cin >> a;
       if(a){
         liczba = 3;
       } else{
-        liczba = 9;
-        cout << "add " << n-9 << endl;
-        cin >> a;
-        cout << "!" << endl;
-        cin >> a;
+        cout << "add " << n-9 << endl; cin >> a;
+        cout << "!" << endl; cin >> a;
         return;
         // nie ustawiamy na plusik
       }
     } else{
       vector<ll> lista = {1,5};
       for(auto el : lista){
-        cout << "add " << plusik-el << endl;
-        cin >> a;
+        cout << "add " << plusik-el << endl; cin >> a;
         if(a){
           flag = true;
           liczba = el;
@@ -71,19 +57,16 @@ void solve(){
       }
       if(!flag){
         liczba = 7;
-        cout << "add " << n-7 << endl;
-        cin >> a;
-        cout << "!" << endl;
-        cin >> a;
+        cout << "add " << n-7 << endl; cin >> a;
+        cout << "!" << endl; cin >> a;
         return;
         // nie ustawiamy na plusik
       }
     }
   }
-  cout << "add " << n-plusik << endl;
-  cin >> a;
-  cout << "!" << endl;
-  cin >> a;
+  // dbg(n, plusik);
+  cout << "add " << n-plusik << endl; cin >> a;
+  cout << "!" << endl; cin >> a;
 }
 
 int main()
