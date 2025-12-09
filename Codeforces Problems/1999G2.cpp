@@ -9,26 +9,32 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-ll plusik = 1e18+1;
+int ask(int i, int j){
+  cout << "? " << i << ' ' << j << endl;
+  int a; cin >> a;
+  return a;
+}
 
 void solve(){
-  ll n,a;
-  bool flag = false;
-  cin >> n;
-  cout << "digit" << endl; cin >> a;
-  cout << "digit" << endl;  cin >> a;
-  // 1 2 3 4 5 6 7 8 9
-  cout << "add " << -8 << endl; cin >> a;
-  // 1 2 3 4 5
-  cout << "add " << -4 << endl; cin >> a;
-  // 1 2 3
-  cout << "add " << -2 << endl; cin >> a;
-  // 1 2
-  cout << "add " << -1 << endl; cin >> a;
-  // 1 
-  cout << "add " << n-1 << endl; cin >> a;
-  // n 
-  cout << "!" << endl; cin >> a;
+  int lewo = 2, prawo = 999;
+  while(lewo < prawo){
+    int srodek1 = lewo+(prawo-lewo)/3;
+    int srodek2 = lewo+2*(prawo-lewo)/3;
+    // dbg(lewo,prawo,srodek1,srodek2, srodek1*(srodek2+1));
+    int cur = ask(srodek1,srodek2);
+    if(cur == srodek1*srodek2){
+      cout << "1" << endl;
+      lewo = srodek2+1;
+    } else if(cur == srodek1*(srodek2+1)){
+      cout << "2" << endl;
+      lewo = srodek1+1;
+      prawo = srodek2;
+    } else{
+      cout << "3" << endl;
+      prawo = srodek1;
+    }
+  }
+  cout << "! " << lewo << endl;
 }
 
 int main()
