@@ -9,7 +9,11 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
+<<<<<<< HEAD
 ll liczba;
+=======
+ll plusik = 1e18+1;
+>>>>>>> e370b23cb76b6cd10a1064f45236c4bb9f73fff5
 
 void solve(){
   ll n,a;
@@ -17,6 +21,7 @@ void solve(){
   cin >> n;
   cout << "digit" << endl; cin >> a;
   cout << "digit" << endl;  cin >> a;
+<<<<<<< HEAD
   cout << "div " << 2 << endl; cin >> a;
   if(a){
     vector<ll> lista = {8,6,4};
@@ -66,6 +71,19 @@ void solve(){
   }
   // dbg(n, plusik);
   cout << "add " << n-plusik << endl; cin >> a;
+=======
+  // 1 2 3 4 5 6 7 8 9
+  cout << "add " << -8 << endl; cin >> a;
+  // 1 2 3 4 5
+  cout << "add " << -4 << endl; cin >> a;
+  // 1 2 3
+  cout << "add " << -2 << endl; cin >> a;
+  // 1 2
+  cout << "add " << -1 << endl; cin >> a;
+  // 1 
+  cout << "add " << n-1 << endl; cin >> a;
+  // n 
+>>>>>>> e370b23cb76b6cd10a1064f45236c4bb9f73fff5
   cout << "!" << endl; cin >> a;
 }
 
