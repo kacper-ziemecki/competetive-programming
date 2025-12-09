@@ -37,7 +37,7 @@ void solve(){
     cin >> a;
     if(a == '>') cur = i;
   }
-  dbg(mx, lista[cur]);
+  cout << "! " << mx << ' ' << lista[cur] << endl;
 }
 
 int main()
