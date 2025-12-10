@@ -35,6 +35,7 @@ ll helper(ll i, ll rest_k, ll prev){
 
 void solve(){
   cin >> n >> m >> k;
+  dbg(n,m,k);
   for(ll i = 0; i < n; i++) cin >> lista[i];
   for(ll i = 0; i < n; i++){
     for(ll j = 0; j < m; j++) cin >> cost[i][j];

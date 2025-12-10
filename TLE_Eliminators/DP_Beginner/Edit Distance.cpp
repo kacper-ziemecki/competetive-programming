@@ -9,21 +9,12 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-const int maxn = 102, maxx = 1e6+2, mod = 1e9+7;
-int lista[maxn];
-int dp[maxx];
+
+const int maxn = 5000;
+
 
 void solve(){
-  int n,x;
-  cin >> n >> x;
-  for(int i = 0; i < n; i++) cin >> lista[i];
-  dp[0] = 1;
-  for(int i = 0; i < n; i++){
-    for(int j = lista[i]; j <= x; j++){
-      dp[j] = (dp[j] + dp[j-lista[i]]) % mod;
-    }
-  }
-  cout << dp[x] << endl;
+
 }
 
 int main()
@@ -33,10 +24,10 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }
