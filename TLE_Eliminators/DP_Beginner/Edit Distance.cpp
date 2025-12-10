@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+<<<<<<< HEAD
 // #define endl "\n"
+=======
+#define endl "\n"
+>>>>>>> 952e7c21049b9109c75bef0824521f94fc3c7717
 #define pb push_back
 #define ll long long
 #define ull unsigned long long
@@ -9,6 +13,7 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
+<<<<<<< HEAD
 const int maxn = 5002;
 int dp[maxn][maxn];
 int n,m;
@@ -38,6 +43,14 @@ void solve(){
     for(int j = 0; j < m; j++) dp[i][j] = -1;
   }
   cout << helper(n-1,m-1) << endl;
+=======
+
+const int maxn = 5000;
+
+
+void solve(){
+
+>>>>>>> 952e7c21049b9109c75bef0824521f94fc3c7717
 }
 
 int main()
@@ -47,10 +60,17 @@ int main()
   cin.tie(0);
   cout.tie(0);
 
+<<<<<<< HEAD
 // #ifndef ONLINE_JUDGE
 //   freopen("../../in.in", "r", stdin);
 //   freopen("../../out.out", "w", stdout);
 // #endif
+=======
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
+>>>>>>> 952e7c21049b9109c75bef0824521f94fc3c7717
 
   solve();
 }
