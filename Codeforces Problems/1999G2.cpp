@@ -23,14 +23,14 @@ void solve(){
     // dbg(lewo,prawo,srodek1,srodek2, srodek1*(srodek2+1));
     int cur = ask(srodek1,srodek2);
     if(cur == srodek1*srodek2){
-      cout << "1" << endl;
+      // cout << "1" << endl;
       lewo = srodek2+1;
     } else if(cur == srodek1*(srodek2+1)){
-      cout << "2" << endl;
+      // cout << "2" << endl;
       lewo = srodek1+1;
       prawo = srodek2;
     } else{
-      cout << "3" << endl;
+      // cout << "3" << endl;
       prawo = srodek1;
     }
   }
