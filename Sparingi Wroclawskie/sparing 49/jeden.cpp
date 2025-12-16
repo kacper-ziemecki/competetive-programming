@@ -149,13 +149,9 @@ void solve(){
         even += dwa;
       } else{
         odd += dwa;
-        even += jeden;
+        even += jeden
       }
-    }
-    if(dp[maxLiczba-1][0] != -1){
-      ilosc_elementow = max(0ll, s-dp[maxLiczba-1][0]);
-      jeden = (ilosc_elementow/2) * (2*1+(ilosc_elementow/2-1)*2)/2;
-      dwa = (ilosc_elementow-1)/2 * (2*2+((ilosc_elementow-1)/2-1)*2)/2;
+    mentow-1)/2-1)*2)/2;
       if(dp[maxLiczba-1][0]&1){
         odd += jeden;
         even += dwa;

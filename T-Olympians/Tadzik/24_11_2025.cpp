@@ -4,7 +4,7 @@ using namespace std;
 int main(){
   // string napis = "sdfajsdlhfdsj;lsdfjsd;lfjsdlk;fjsdl;jsdlkfjsjfjklsadhfkljsdhfljkshfasdjklfhaskldjfhlsakdfhlsakdjhfklsdjhfkljadshfkljasdhflkjahsdfkljsdhflkashflkjsadhfkljsdhfjklsdhfkljsdahflkjsdhflkjsadhfkljsdhfjklsdhfsdlhfsdjfhlsdkjfhsdjklnfsdjfhsd";
   vector<int> lista; // tworzy pusty wektor
-  
+  // [32,5,324,23,45,223,34]
   vector<int> lista2(100); // tworzy wektor o 100 elementach, ktore wszystkie sa 0
   // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   vector<int> lista3(100, 1);
@@ -20,6 +20,12 @@ int main(){
   lista.push_back(6);
   lista.push_back(-1);
 
+  // wczytywanie wektora z input
+  for(int i = 0; i < lista.size(); i++){
+    cin >> lista[i];
+  }
+
+  // wyswietlanie na ekranie
   for(int i = 0; i < lista.size(); i++){
     cout << lista[i] << ' ';
   }
