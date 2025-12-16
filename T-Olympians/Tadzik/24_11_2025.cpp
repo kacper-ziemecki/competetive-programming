@@ -3,8 +3,12 @@ using namespace std;
 
 int main(){
   // string napis = "sdfajsdlhfdsj;lsdfjsd;lfjsdlk;fjsdl;jsdlkfjsjfjklsadhfkljsdhfljkshfasdjklfhaskldjfhlsakdfhlsakdjhfklsdjhfkljadshfkljasdhflkjahsdfkljsdhflkashflkjsadhfkljsdhfjklsdhfkljsdahflkjsdhflkjsadhfkljsdhfjklsdhfsdlhfsdjfhlsdkjfhsdjklnfsdjfhsd";
-  vector<int> lista;
-  // [32,5,324,23,45,223,34]
+  vector<int> lista; // tworzy pusty wektor
+  
+  vector<int> lista2(100); // tworzy wektor o 100 elementach, ktore wszystkie sa 0
+  // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  vector<int> lista3(100, 1);
+  // [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   vector<string> lista_napisow;
   // ["asdfas", "asdfasdf", "hgfdgdfg", "fsdfsd"]
   vector<bool> lista_true_false;

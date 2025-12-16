@@ -16,6 +16,22 @@ void solve(){
   int a,b,c,d;
   cout << "? 1 1" << endl;
   cin >> a;
+<<<<<<< HEAD
+  cout << "? " << min(n,1+a) << ' ' << max(1,1+a-n+1) << endl;
+  cin >> b;
+  cout << "? " << max(1,1+a-m+1) << ' ' << min(m,1+a) << endl;
+  cin >>c;
+  if(b&1){
+    cout << "! " << max(1,1+a-m+1)+c/2 << ' ' << min(m,1+a)-c/2 << endl;
+  } else{
+    cout << "? " << min(n,1+a)-b/2 << ' ' << max(1,1+a-n+1)+b/2 << endl;
+    cin >> d;
+    if(d == 0){
+      cout << "! " << min(n,1+a)-b/2 << ' ' << max(1,1+a-n+1)+b/2 << endl;
+    } else{
+      cout << "! " << max(1,1+a-m+1)+c/2 << ' ' << min(m,1+a)-c/2 << endl;
+    }
+=======
   cout << "? 1 " << m << endl;
   cin >> b;
   cout << "? " << n << " 1" << endl;
@@ -34,6 +50,7 @@ void solve(){
   } else{
     // dbg(4);
     cout << "! " << 1+a-(a+d-n+1)/2 << ' ' << 1+(a+d-n+1)/2 << endl;
+>>>>>>> 259e0c613432dd285b014a91bdaa64e3492743cf
   }
 }
 
