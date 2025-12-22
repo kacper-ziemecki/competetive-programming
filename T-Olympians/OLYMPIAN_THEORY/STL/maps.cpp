@@ -7,17 +7,36 @@ template<typename Head, typename... Tail> void dbg_out(Head H,Tail... T){cout<<'
 #define dbg(...) cout<<'('<<#__VA_ARGS__<<"):", dbg_out(__VA_ARGS__)
 
 int main(){
+  // map<typ_klucza, typ_wartosci> nazwa_zmiennej;
   map<string,bool> mp;
+
   // indeksowanie oraz ustawianie warosci
+  // klucz      wartosc
   mp["harry"] = true;
-  // count - O(log n)
+
+  map<int, int> mapa;
+  // klucz mapuje do wartosci
+  // {{klucz1 -> wartosc1}, 
+  // {klucz2 -> wartosc2}}
+
+  // mapa[klucz1] == wartosc1
+  // mapa[klucz2] == wartosc2
+
+  // mapa[klucz1]++;
+  // mapa[klucz2] = 1;
+
+
+
+  // === TRZY METODY SPRAWDZANIA CZY JAKIŚ KLUCZ WYSTĘPUJE W MAPIE: ===
+
+  //1. count - O(log n)
   if(mp.count("harry") == 1){
     cout << "wystepuje\n";
   } else{
     cout << "nie wystepuje\n";
   }
 
-  // find - O(log n)
+  //2. find - O(log n)
   if(mp.find("harry") != mp.end()){
     cout << "wystepuje\n";
   } else{
@@ -25,30 +44,57 @@ int main(){
   }
 
 
-  // indeksowanie - O(log n)
+  //3. indeksowanie - O(log n)
+  // W C++ wyrażenie indeksowania mapy, np. mojaMapa[klucz],
+  // gdy klucz nie istnieje, automatycznie tworzy nowy element w mapie, 
+  // przypisując mu domyślną wartość dla typu wartości 
+  // (np. 0 dla int, nullptr dla wskaźników, pusty string dla std::string), 
+  // i zwraca referencję do tej właśnie utworzonej, domyślnej wartości, 
+  // umożliwiając jej natychmiastową modyfikację.
   if(mp["harry"] == true){
     cout << "wystepuje\n";
   } else{
     cout << "nie wystepuje\n"; 
   }
 
+
+  // ===================================================================
+
+
   // usuwanie erase - O(log n)
+  // do metody erase możemy podać jako argument klucz jaki chcemy usunąć
   mp.erase("harry");
   mp["harry"] = true;
-  mp.erase(mp.find("harry"));
+  // do metody erase możemy podać iterator wskazujący na klucz jaki chcemy usunąć
+  mp.erase(mp.find("harry")); 
 
-}
-// https://leetcode.com/problems/two-sum/description/?envType=problem-list-v2&envId=hash-table
-// https://leetcode.com/problems/longest-substring-without-repeating-characters/?envType=problem-list-v2&envId=hash-table
-// https://codeforces.com/contest/855/problem/A
-vector<string> lista = {"tom","lucius","ginny","harry","ginny","harry"};
-map<string,bool> odwiedzone;
-for(auto napis : lista){
-  if(odwiedzone.count(napis) == 0){
-    cout << "NO\n";
-  } else{
-    cout << "YES\n";
+  // mapy mają unikatowe klucze
+  vector<string> napisy = {"A", "A", "A", "B", "A"};
+  map<string, int> mapa2;
+  for(int i = 0; i < napisy.size(); i++){
+    mapa2[napisy[i]]++;
   }
-  odwiedzone[napis] = true;
+  for(pair<string, int> el : mapa2){
+    cout << el.first << " -> " << el.second << endl;
+  }
 }
-// https://leetcode.com/problems/isomorphic-strings/description/?envType=problem-list-v2&envId=hash-table
+// ZADANIA: 
+// 1.https://leetcode.com/problems/two-sum/description/?envType=problem-list-v2&envId=hash-table
+// 2.https://leetcode.com/problems/longest-substring-without-repeating-characters/?envType=problem-list-v2&envId=hash-table
+// 3.https://codeforces.com/contest/855/problem/A
+// 4.https://leetcode.com/problems/isomorphic-strings/description/?envType=problem-list-v2&envId=hash-table
+
+
+//ROZWIĄZANIA:
+// 1) -
+// 2)
+// vector<string> lista = {"tom","lucius","ginny","harry","ginny","harry"};
+// map<string,bool> odwiedzone;
+// for(auto napis : lista){
+//   if(odwiedzone.count(napis) == 0){
+//     cout << "NO\n";
+//   } else{
+//     cout << "YES\n";
+//   }
+//   odwiedzone[napis] = true;
+// }
