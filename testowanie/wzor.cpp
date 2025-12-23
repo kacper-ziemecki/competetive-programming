@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define endl "\n"
+#define pb push_back
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -8,79 +9,40 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-int n,m;
-int t,l,r,v;
-
-struct SegTree{
-  vector<int> nodes,prop;
-  int ss;
-  SegTree(int n){
-    ss = 1;
-    while(ss < n) ss <<= 1;
-    nodes.assign(ss<<1, 0);
-    prop.assign(ss<<1, 0);
-  }
-  void propagate(int x, int lx, int rx){
-    nodes[x] += prop[x] * (rx-lx+1);
-    if(x < ss-1){
-      prop.at(2*x+1) += prop.at(x);
-      prop.at(2*x+2) += prop.at(x);
-    }
-    prop.at(x) = 0;
-  }
-  void set(int l, int r, int v, int x, int lx, int rx){
-    propagate(x,lx,rx);
-    if(l <= lx && rx <= r){
-      prop.at(x) += v;
-      propagate(x,lx,rx);
-      return;
-    }
-    if(r < lx || rx < l) return;
-    int mid = (lx+rx)/2;
-    set(l,r,v,2*x+1,lx,mid);
-    set(l,r,v,2*x+2,mid+1,rx);
-    nodes.at(x) = nodes.at(2*x+1) + nodes.at(2*x+2);
-  }
-  void set(int l, int r, int v){
-    set(l,r,v,0,0,ss-1);
-  }
-  int get(int l, int r, int x, int lx, int rx){
-    propagate(x,lx,rx);
-    if(l <= lx && rx <= r) return nodes[x];
-    if(r < lx || rx < l) return 0;
-    int mid = (lx+rx)/2;
-    int jeden = get(l,r,2*x+1,lx,mid);
-    int dwa = get(l,r,2*x+2,mid+1,rx);
-    nodes.at(x) = nodes.at(2*x+1) + nodes.at(2*x+2);
-    return jeden+dwa;
-  }
-  int get(int l, int r){
-    return get(l,r,0,0,ss-1);
-  }
-  void print(){
-    for(auto el : nodes) cout << el << ' ';
-    cout << endl;
-    for(auto el : prop) cout << el << ' ';
-    cout << endl;
-  }
-};
 
 void solve(){
-  cin >> n >> m;
-  SegTree segtree(n);
-  for(int i = 0; i < m; i++){
-    cin >> t;
-    if(t==1){
-      cin >> l >> r >> v;
-      // dbg(t,l,r,v);
-      segtree.set(l,r-1,v);
-      // segtree.print();
-    } else{
-      cin >> l >> r;
-      // dbg(t,l,r);
-      cout << segtree.get(l, r-1) << endl;
-      // segtree.print();
+  ll n,k;
+  ll cnt = 0;
+  cin >> n >> k;
+  ll jeden=0,dwa=0;
+  ll idx = -1;
+  for(ll i = 35; i >= 0; i--){
+    if((n>>i) & 1ll){ // napotkalismy na jedynke
+      cnt++;
     }
+    if(cnt == 2){
+      idx = i;
+      break;
+    }
+  }
+  for(ll i = idx; i >= 0; i--){
+    jeden |= 1ll<<i;
+  }
+  
+  dwa = jeden ^ n;
+
+  if(k&1){
+    for(ll i = 0; i < k; i++){
+      cout << n << ' ';
+    }
+    cout << endl;
+  } else{
+    // cout << jeden << ' ' << dwa << ' ';
+    // for(ll i = 0; i < k-2; i++){
+    //   cout << n << ' ';
+    // }
+    cout << jeden+dwa;
+    cout << endl;
   }
 }
 
@@ -96,5 +58,8 @@ int main()
 //   freopen("../../out.out", "w", stdout);
 // #endif
 
+  int t;
+  cin >> t;
+  while(t--)
   solve();
 }
