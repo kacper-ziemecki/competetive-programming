@@ -15,9 +15,6 @@ int main(){
 	int seed; 
 	cin >> seed; 
 	srand(seed);
-	int t = rnd(1,1);
-	cout << t << endl;
-	int n = rnd(1,1000);
-	int k = rnd(1,10);
-	cout << n << ' ' << k << endl;
+	int n = rnd(5,15);
+	
 }
