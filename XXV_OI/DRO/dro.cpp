@@ -13,18 +13,16 @@ int n,m;
 int u,v;
 int cnt;
 const int maxn = 5e4+1;
-vector<int> adj[maxn];
-int indeg[maxn];
-int subtree[maxn];
-int vis[maxn];
+vector<int> adj[maxn], adj_t[maxn], adj_scc[maxn];
+bool vis[maxn];
+int indeg[maxn], subtree[maxn];
+vector<int> order;
 
 struct DSU{
   vector<int> p,sajz;
-  vector<bool> cycle;
   DSU(int n){
     p.resize(n+1);
     sajz.assign(n+1, 1);
-    cycle.assign(n+1, false);
     for(int i = 0; i <= n; i++) p[i] = i;
   } 
   int getSet(int a){return (p[a] == a ? a : p[a] = getSet(p[a]));}
@@ -38,75 +36,65 @@ struct DSU{
   }
 };
 
-int dfs(int u){
-  if(subtree[u] > 0) return subtree[u];
-  subtree[u] = 1;
+void dfs1(int u){
+  vis[u] = true;
   for(auto v : adj[u]){
-    subtree[u] += dfs(v);
+    if(!vis[v]) dfs1(v);
+  }
+  order.pb(u);
+}
+
+void dfs2(int u, int prev, DSU &dsu){
+  dsu.unionSet(u,prev);
+  vis[u] = true;
+  for(auto v : adj_t[u]){
+    if(!vis[v]) dfs2(v,u,dsu);
+  }
+}
+
+int calc_subtree(int u, DSU &dsu){
+  subtree[u] = dsu.sajz[u];
+  for(auto v : adj_scc[u]){
+    subtree[u] += calc_subtree(v,dsu);
   }
   return subtree[u];
 }
 
-bool vis1[maxn];
-void cykl(int u){
-  vis1[u] = true;
-  cout << "-" << u;
-  for(auto v : adj[u]){
-    if(!vis1[v]) cykl(v);
-  }
-}
-
-bool checkCycle(int u){
-  vis[u] = 1;
-  for(auto v : adj[u]){
-    if(vis[v] == 1){ // mamy cykl
-      vis[u] = -1;
-      return true;
-    } else if(vis[v] == 0 && checkCycle(v)){ //tez pozniej znajdziemy cykl
-      vis[u] = -1;
-      return true;
-    }
-  }
-  vis[u] = -1; //stajemy sie staruchem
-  return false;
-}
 void solve(){
   cin >> n >> m;
   DSU dsu(n+1);
   for(int i = 0; i < m; i++){
     cin >> u >> v;
-    indeg[v]++;
-    dsu.unionSet(u,v);
     adj[u].pb(v);
+    adj_t[v].pb(u);
   }
-  for(int i = 1; i <= n; i++) vis[i] = 0;
   for(int i = 1; i <= n; i++){
-    if(vis[i] == 0 && checkCycle(i)){
-      dsu.cycle[dsu.getSet(i)] = true;
+    if(!vis[i]) dfs1(i);
+  }
+  reverse(order.begin(), order.end());
+
+  for(int i = 1; i <= n; i++) vis[i] = false;
+  for(auto el : order){
+    if(!vis[el]) dfs2(el, el, dsu);
+  }
+  for(int i = 1; i <= n; i++){
+    for(auto v : adj[i]){
+      if(dsu.getSet(i) == dsu.getSet(v)) continue;
+      adj_scc[dsu.getSet(i)].pb(dsu.getSet(v));
     }
   }
   for(int i = 1; i <= n; i++){
-    if(!dsu.cycle[dsu.getSet(i)] && indeg[i] == 0) dfs(i);
+    for(auto v : adj_scc[i]){
+      indeg[v]++;
+    }
   }
   for(int i = 1; i <= n; i++){
-    if(dsu.cycle[dsu.getSet(i)]){
-      cout << dsu.sajz[dsu.getSet(i)]-1;
-      // cout << "-cykl:";
-      // cout << "(" << dsu.getSet(i) <<"):";
-      // for(int j = 0; j <= n; j++) vis1[j] = false;
-      // cykl(i);
-      // cout << "|";
-      // for(int j = 1; j <= n; j++){
-      //   if(dsu.getSet(j) == dsu.getSet(i)){
-      //     cout << "(" << j << ")-";
-      //     for(auto v : adj[j]) cout << "[" << v << "]";
-      //   }
-      // }
-      cout << endl;
-    } else{
-      cout << subtree[i]-1 << endl;
-      // cout << "-drzewo" << endl;
+    if(indeg[i] == 0){
+      calc_subtree(i, dsu);
     }
+  }
+  for(int i = 1; i <= n; i++){
+    cout << subtree[dsu.getSet(i)]-1 << endl;
   }
 }
 
