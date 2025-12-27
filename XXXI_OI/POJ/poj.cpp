@@ -10,41 +10,44 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
 ll n,k;
+pair<ll,ll> tmp,mx,mn;
 
 void solve(){
   cin >> n >> k;
   vector<ll> lista(n);
   vector<vector<ll>> res;
-  vector<bool> vis(n);
-  for(int i = 0; i < n; i++){
-    cin >> lista[i];
-  }
-  priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, less<>> pq_max;
-  priority_queue<pair<ll,ll>, vector<pair<ll,ll>>> pq_min
-  for(int i = 0; i < n; i++){
-    pq_max.emplace(make_pair(lista[i], i));
-    pq_min.emplace(make_pair(lista[i], i));
-  }
+  for(auto &el : lista) cin >> el;
+  set<pair<ll,ll>> st;
+
+  for(int i = 0; i < n; i++) st.emplace(make_pair(lista[i], i));
 
   for(int i = 0; i < n; i++){
-    ll mn = lista[sorted_lista[i].second];
-    if(mn > k){
+    if(st.empty()) break;
+
+    mn = *st.begin();
+    mx = *st.rbegin();
+
+    st.erase(st.begin());
+    if(mn.second == mx.second) mx.first = 0;
+    else st.erase(prev(st.end()));
+    // dbg(mn.first,mn.second,mx.first,mx.second);
+    ll one = min(k, mn.first);
+    ll two = min(k-one, mx.first);
+    // dbg(one,two);
+    lista[mn.second] -= one;
+    lista[mx.second] -= two;
+    // dbg(lista[mn.second], lista[mx.second]);
+    if(lista[mn.second] != 0) st.emplace(make_pair(lista[mn.second], mn.second));
+    if(lista[mx.second] != 0) st.emplace(make_pair(lista[mx.second], mx.second));
+    res.pb({mn.second, one, mx.second, two});
+  }
+  // for(auto el : lista) cout << el << ' ';
+  // cout << endl;
+  for(auto el : lista){
+    if(el > 0){
       cout << "NIE\n";
       return;
     }
-    vis[sorted_lista[i].second] = true;
-    // for(auto el : vis) cout << el << ' ';
-    // cout << endl;
-    // dbg(mn,k);
-    while(!pq.empty() && vis[pq.top().second]) pq.pop();
-    ll mx = (pq.empty() ? 0 : pq.top().first);
-    // dbg(pq.empty());
-    res.pb({sorted_lista[i].second, mn, (pq.empty() ? 0 : pq.top().second), min(mx, k-mn)});
-    // dbg(mx);
-    // dbg(sorted_lista[i].second,mn,pq.top().second,min(mx, k-mn));
-    if(!pq.empty()) lista[pq.top().second] = max(0ll, mx-(k-mn));
-    // dbg(lista[pq.top().second]);
-    if(!pq.empty()) pq.emplace(make_pair(max(0ll, mx-(k-mn)), pq.top().second)); pq.pop();
   }
   cout << "TAK\n";
   for(auto sub : res){
@@ -55,6 +58,9 @@ void solve(){
     } else{
       cout << 2 << ' ' << sub[0]+1 << ' ' << sub[1] << ' ' << sub[2]+1 << ' ' << sub[3] << endl;
     }
+  }
+  for(int i = 0; i < n-res.size(); i++){
+    cout << 0 << endl;
   }
 }
 
