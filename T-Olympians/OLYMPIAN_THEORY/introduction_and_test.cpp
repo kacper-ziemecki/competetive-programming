@@ -52,6 +52,7 @@ template<typename Head, typename... Tail> void dbg_out(Head H,Tail... T){cout<<'
 // Zadanie 14: 
 //   Napisz program, który sprawdza, czy dany napis jest palindromem (czytany od tyłu daje ten sam ciąg).
 
+
 // 🔵 Poziom 4 – Struktury, wskaźniki, klasy (15–18)
 // Zadanie 15: 
 //   Zdefiniuj strukturę Osoba zawierającą pola imie, nazwisko, wiek. Wczytaj dane i wyświetl je.
