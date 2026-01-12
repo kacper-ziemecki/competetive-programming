@@ -260,4 +260,16 @@ int main()
     }
     cout << endl;
   }
+
+  int t;
+  cin >> t;
+  for(int i = 0; i < t; i++){
+    //rozwiazywanie pojedynczego zadania
+  }
+
+  int t;
+  cin >> t;
+  while(t--){
+    //rozwiazwyanie pojedynczego zadania
+  }
 }

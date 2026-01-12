@@ -1,35 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n,k;
-const int maxn = 1e5+1;
-int tablica[maxn], tablica2[maxn];
+// const int maxn = 100;
+// vector<int> adj1[maxn];
+void dfs(int u, vector<bool> &vis){
+  vis[u] = true;
+  for(int v : adj[u]){
+    if(!vis[v]) dfs(v);
+  }
+}
+
 int main()
 {
-    cin >> n >> k;
-    for(int i = 0 ; i< n; i++) cin >> tablica[i];
-    for(int i = 0; i < k; i++) cin >> tablica2[i];
-
-    for(int i = 0; i < k; i++)
-    {
-        int lewo = 0;
-        int prawo = n-1;
-        int srodek;
-        while(lewo < prawo)
-        { 
-            srodek = (lewo+prawo+1)/2; 
-            if(tablica[srodek] <= tablica2[i]){
-              lewo = srodek;
-            } else{
-              prawo = srodek-1;
-            }
-        }
-        if(tablica[lewo] <= tablica2[i]){
-          cout << lewo+1 << endl;
-        } else{
-          cout << 0 << endl;
-        }
-    }
-
-    return 0;
+  int n,m;
+  int u,v;
+  cin >> n >> m;
+  vector<vector<int>> adj(n+1);
+  vector<bool> vis(n+1);
+  // vector<pair<int,int>> edges;
+  for(auto i = 0; i < m; i++){
+    cin >> u >> v;
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+    // edges.push_back({u,v});
+  }
+  dfs(1,vis);
+  return 0;
 }
