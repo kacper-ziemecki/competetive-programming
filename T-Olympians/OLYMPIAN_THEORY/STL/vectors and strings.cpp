@@ -112,4 +112,13 @@ int main(){
     suma += (i+1)*lista[i];
   }
   cout << suma << endl;
+
+  vector<int> kolejna_lista;
+  kolejna_lista.resize(5);
+
+  string napis = "1234512";
+  int suma = 0;
+  for(int i = 0; i < napis.size(); i++){
+    suma += napis[i] - '0';
+  }
 }

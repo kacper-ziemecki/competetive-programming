@@ -100,7 +100,17 @@ int main()
   _____________
     0000000100
 
+  // spr & (1 << 2) == 0 to bit nie jest ustawiony
+  // spr & (1 << 2) != 0 to bit jest ustawiony
+
+  // inna metoda sprawdzenia czy bit jest ustawiony na pozycji nr 3
+
+  // (spr>>2) & 1 == 0 to bit nie jest ustawiony
+  // (spr>>2) & 1 != 0 to bit jest ustawiony
+
   // __int128_t ciekawostka
+
+  __builtin_popcount(n) ==> ile bitow jest ustawionych w zmiennej n 
 
   //ZADANIA:
   //1) https://leetcode.com/problems/number-of-1-bits/description/?envType=problem-list-v2&envId=bit-manipulation

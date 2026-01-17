@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
 	exit 0 
 fi
 g++ -std=c++20 -O2 -fsanitize=undefined,bounds -fstack-protector-strong -Wall -Wextra -pedantic -fno-omit-frame-pointer generator.cpp -o generator
-if [ $? -ne 0 ]; then 
+if [ $? -ne 0 ]; then 1
 	echo "BLAD BLAD BLAD KOMPILACJI"
 	exit 0 
 fi

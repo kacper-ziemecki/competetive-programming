@@ -7,27 +7,23 @@ using namespace std;
 #define ld long double
 void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
-#define dbg(...) cout << "(" << #__VA_ARGS__ <
+#define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
+
+int n,q,parent;
+const int maxn = 65536;
+vector<int> adj[maxn];
+int subtreeSize[maxn], permutation[maxn];
 
 void solve(){
-  int n;
-  cin >> n;
-  if(n == 2){
-    cout << 2 << endl;
-  } else if(n == 3){
-    cout << 3 << endl;
-  } else if(n&1){
-    cout << 1 << endl;
-  } else{
-    cout << 0 << endl;
-  }
+  cin >> n >> q;
+  for(int)
 }
 
 int main()
-{
+  {
 
   ios_base::sync_with_stdio(0);
-  cin.tie(0);
+  cin.tie(0); 
   cout.tie(0);
 
 #ifndef ONLINE_JUDGE

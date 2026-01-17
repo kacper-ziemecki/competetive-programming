@@ -107,4 +107,24 @@ int main()
     // graf skierowany 
     matrix[u][v] = true;
   }
+
+
+  // graf nieskierowany wazony
+  n m 
+  u1 v1 w1
+  u2 v2 w2 
+  u3 v3 w3
+  ...
+  int n,m;
+  cin >> n >> m;
+  vector<vector<pair<int,int>>> adj(n+1);
+  int u,v,w;
+  for(int i = 0; i < m; i++){
+    cin >> u >> v >> w;
+    adj[u].pb(make_pair(v,w));
+    adj[v].pb(make_pair(u,w));
+  }
+
+
+
 }
