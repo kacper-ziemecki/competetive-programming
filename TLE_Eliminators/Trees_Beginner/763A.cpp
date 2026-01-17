@@ -20,10 +20,27 @@ pair<int,int> res = {1,2};
 void dfs1(int u){
   vis[u] = true;
   for(auto v : adj[u]){
-    if(!vis[v] && color[u] != color[v]){
+    if(!vis[v] && color[u-1] != color[v-1]){
       res = {u,v};
     } else if(!vis[v]) dfs1(v);
   }
+}
+bool same(int u, int c){
+  // dbg(u, c);
+  vis[u] = true;
+  if(color[u-1] != c) return false;
+  for(auto v : adj[u]){
+    if(!vis[v] && !same(v, c)) return false;
+  }
+  return true;
+}
+
+bool check(int u){
+  vis[u] = true;
+  for(auto v : adj[u]){
+    if(!same(v, color[v-1])) return false;
+  }
+  return true;
 }
 
 void solve(){
@@ -35,7 +52,22 @@ void solve(){
   }
   for(int i = 0; i < n; i++) cin >> color[i];
   dfs1(1);
-  dbg(res.first, res.second);
+  // dbg(res.first, res.second);
+  for(int i = 1; i <= n; i++) vis[i] = false;
+  if(check(res.first)){
+    cout << "YES\n";
+    cout << res.first << endl;
+    return;
+  }
+  // cout << "-------------\n";
+  for(int i = 1; i <= n; i++) vis[i] = false; 
+  if(check(res.second)){
+    cout << "YES\n";
+    cout << res.second << endl;
+  } else{
+    cout << "NO\n";
+  }
+
 }
 
 int main()
