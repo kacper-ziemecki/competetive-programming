@@ -67,7 +67,7 @@ int main(){
   //tworzymy pustego wektor/pusta lista
   vector<int> lista1 = {1,2,3,4,5,6,7,564,234,623,34,46,234,53,...};
   //tworzy zmienna o typie wektor/liste z juz przypisanymi wartosciami
-  vector<int> lista2(5, 1); // = {1,1,1,1,1};
+  vector<int> lista2(5, 0); // = {1,1,1,1,1};
   //tworzy zmiena o typie wektor/liste z piecioma jedynkami
   //pozycje w wektorze {0,1,2,3,4}
   cout << lista1[0] << endl; // wyswietlamy co znajduje sie na pozycji 0 w lista1
