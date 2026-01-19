@@ -16,7 +16,7 @@ int main(){
 	cin >> seed; 
 	srand(seed);
 	int n = rnd(5,10);
-	int m = rnd(2,5);
+	int m = rnd(5,6);
 	string s = "PZ";
 	cout << n << ' ' << m << endl;
 	for(int i = 0; i < m; i++){

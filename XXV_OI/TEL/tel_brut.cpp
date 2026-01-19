@@ -26,6 +26,8 @@ void solve(){
       cin >> x >> s >> a;
       lista[x] = make_pair(s,a);
       for(int j = 1; j <= n; j++) suma[j] += max(0ll, s-abs(x-j)*a);
+      // for(int j = 1; j <= n; j++) cout << suma[j] << ' ';
+      // cout << endl;
     } else if(c == 'U'){
       cin >> x;
       s = lista[x].first;
@@ -35,6 +37,7 @@ void solve(){
       cin >> x1 >> x2;
       ll res = 0;
       for(int j = x1; j <= x2; j++) res += suma[j];
+      // dbg(res);
       cout << res/(x2-x1+1) << endl;
     }
   }
@@ -47,10 +50,10 @@ int main()
   cin.tie(0); 
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }

@@ -30,7 +30,7 @@ struct SegTree{
   void propagate(int l, int r, int x, int kierunek){
     int a1 = (kierunek == 1 ? lazy[x][kierunek].first - l*lazy[x][kierunek].second : lazy[x][kierunek].first - (n+1-r)*lazy[x][kierunek].second);
     int an = (kierunek == 1 ? lazy[x][kierunek].first - r*lazy[x][kierunek].second : lazy[x][kierunek].first - (n+1-l)*lazy[x][kierunek].second);
-    // dbg(a1,an);
+    // dbg(lazy[x][kierunek].first,lazy[x][kierunek].second);
     int s = (a1+an)*(r-l+1)/2;
     suma[x] += s;
     if((x*2+1) < (ss<<1)){
@@ -45,14 +45,16 @@ struct SegTree{
   }
   void set(int l, int r, pair<int,int> a, int x, int lx, int rx, int kierunek){
     // dbg(lx,rx);
-    propagate(lx,rx,x,kierunek);
+    propagate(lx,rx,x,1);
+    propagate(lx,rx,x,0);
     if(l <= lx && rx <= r){
       // dbg("ustawienie", lx,rx);
       lazy[x][kierunek].first += a.first;
       lazy[x][kierunek].second += a.second;
-      propagate(lx,rx,x,kierunek);
+      propagate(lx,rx,x,1);
+      propagate(lx,rx,x,0);
       // dbg(a.first,a.second);
-      // dbg(suma[x]);
+      // dbg(suma[x],lx,rx,l,r,x,2*x+1, ss<<1);
       return;
     }
     if(rx < l || lx > r) return;
@@ -60,6 +62,10 @@ struct SegTree{
     int mid = (lx+rx)/2;
     set(l,r,a,2*x+1,lx,mid,kierunek);
     set(l,r,a,2*x+2,mid+1,rx,kierunek);
+    suma[x] = suma[2*x+1]+suma[2*x+2];
+    // dbg(lx,rx);
+    // for(auto el : suma) cout << el << ' ';
+    // cout << endl;
   }
   void set(int l, int r, pair<int,int> a, int kierunek){ // (1 ---->), (0 <----)
     set(l,r,a,0,1,ss,kierunek);
@@ -95,12 +101,13 @@ void solve(){
       int l = max(1,x - ((s+a-1)/a)+1);
       int r = min(n,x + ((s+a-1)/a)-1);
       segtree.set(x, r, prawo, 1);
-      if(x != r) segtree.set(l, x-1, lewo, 0);
-      //  dbg(l,r);
+      if(x != l) segtree.set(l, x-1, lewo, 0);
+      // dbg(l,r);
       // dbg(prawo.first,prawo.second);
       // dbg(lewo.first,lewo.second);
       // for(auto el : segtree.suma) cout << el << ' ';
       // cout << endl;
+      // dbg(segtree.get(1,n));
     } else if(c == 'U'){
       cin >> x;
       s = lista[x].first;
@@ -109,9 +116,10 @@ void solve(){
       int l = max(1,x - ((s+a-1)/a)+1);
       int r = min(n,x + ((s+a-1)/a)-1);
       segtree.set(x, r, prawo, 1);
-      if(x != r) segtree.set(l, x-1, lewo, 0);
+      if(x != l) segtree.set(l, x-1, lewo, 0);
     } else{
       cin >> x1 >> x2;
+      // dbg(segtree.get(x1,x2));
       cout << segtree.get(x1,x2)/(x2-x1+1) << endl;
     }
   }
@@ -124,10 +132,10 @@ int main()
   cin.tie(0); 
   cout.tie(0);
 
-// #ifndef ONLINE_JUDGE
-//   freopen("../../in.in", "r", stdin);
-//   freopen("../../out.out", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+  freopen("../../in.in", "r", stdin);
+  freopen("../../out.out", "w", stdout);
+#endif
 
   solve();
 }
