@@ -52,6 +52,7 @@ void solve(){
       previous[i] = lastIdx;
     } 
     for(int j = 0; j < 26; j++){
+<<<<<<< HEAD
       prv = cur ^ (1<<j);
       if(dp.count(prv) == 0) continue;
       int idx = findIdx(prv,i);
@@ -65,6 +66,9 @@ void solve(){
     }
     if(mn != -1){
       dp[cur].pb(make_pair(mn,lastIdx));
+=======
+      prev = cur
+>>>>>>> 06a42f7a41074787ae9196264b1bf4e99d44f31b
     }
   }
   vector<int> res;
