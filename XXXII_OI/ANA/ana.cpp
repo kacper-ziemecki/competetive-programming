@@ -22,7 +22,7 @@ void solve(){
   for(int i = 0; i < n; i++){
     cur = cur ^ (1<<(s[i]-'a'));
     for(int j = 0; j < 26; j++){
-      
+      prev = cur
     }
   }
 }
