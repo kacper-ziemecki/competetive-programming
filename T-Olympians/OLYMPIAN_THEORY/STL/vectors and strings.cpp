@@ -121,4 +121,20 @@ int main(){
   for(int i = 0; i < napis.size(); i++){
     suma += napis[i] - '0';
   }
+  //ZADANIA:
+  //1) https://szkopul.edu.pl/c/mistrz-programowania-2026/p/r1c/
+  //2) https://www.codechef.com/problems/ECOCLASS?tab=statement
+  int n;
+  com >> n;
+  vector<int> s(n), d(n);
+  for(int i = 0; i < n; i++) cin >> s[i];
+  for(int i = 0; i < n; i++) cin >> d[i];
+  int suma = 0;
+  for(int i = 0; i < n; i++){
+    if(s[i] == d[i]) suma++;
+  }
+  cout << suma << endl;
+  //3) https://www.codechef.com/problems/GMGM?tab=statement
+  //4) https://szkopul.edu.pl/c/mistrz-programowania-2026/p/r1b/
+  //5) https://www.codechef.com/problems/DONUTSELL?tab=statement
 }

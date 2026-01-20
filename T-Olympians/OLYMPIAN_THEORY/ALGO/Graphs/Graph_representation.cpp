@@ -118,6 +118,8 @@ int main()
   int n,m;
   cin >> n >> m;
   vector<vector<pair<int,int>>> adj(n+1);
+  // const int maxn = 100;
+  // vector<pair<int,int>> adj[maxn];
   int u,v,w;
   for(int i = 0; i < m; i++){
     cin >> u >> v >> w;
