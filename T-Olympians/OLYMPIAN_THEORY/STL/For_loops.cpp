@@ -272,4 +272,28 @@ int main()
   while(t--){
     //rozwiazwyanie pojedynczego zadania
   }
+
+
+
+
+  //for each loop
+  vector<int> lista = {1,5,54,5,3,5};
+  for(int element : lista){
+    cout << element << ' ';
+  }
+  cout << endl;
+  for(int i = 0; i < lista.size(); i++){
+    cout << lista[i] << ' ';
+  }
+  cout << endl;
+
+  string napis = "sdfjashdfasdfasd";
+  for(char element : napis){
+    cout << el << ' ';
+  }
+  cout << endl;
+  for(auto i = 0; i < napis.size(); i++){
+    cout << napis[i] << ' ';
+  }
+  cout << endl;
 }

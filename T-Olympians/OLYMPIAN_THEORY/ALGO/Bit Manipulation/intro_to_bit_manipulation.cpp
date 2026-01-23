@@ -110,6 +110,32 @@ int main()
 
   // __int128_t ciekawostka
 
+  // XOR
+  false ^ true = true
+  true ^ false = true
+  true ^ true = false
+  false ^ false = false
+
+  int a = 5; //0101
+  int b = 12; //1100
+  a ^ b = 0b0101 ^ 0b1100 = 0b1001 = 9
+  a ^ 0 = a  
+  a ^ a = 0 
+  a ^ a ^ a ^ a = 0 
+  a ^ a ^ a = a
+
+  [4,1,2,1,2]
+  int wynik = 0;
+  wynik = wynik ^ 4; // wynik = 4 = 0b100
+  4 ^ 1 = 0b100 ^ 0b001 = 0b101
+  wynik = wynik ^ 1; // wynik = 5 = 0b101
+  wynik = wynik ^ 2; // wynik = 7 = 0b111
+  wynik = wynik ^ 1 // wynik = 6 = 0b110
+  wynik = wynik ^ 2 // wynik = 4 = 0b100
+  wynik = 0 ^ 4 ^ 1 ^ 2 ^ 1 ^ 2 = 0 ^ 1 ^ 1 ^ 2 ^ 2 ^ 4 
+  = 0 ^ (1 ^ 1) ^ (2 ^ 2) ^ 4 
+  = 0 ^ 0 ^ 0 ^ 4 = 4
+
   __builtin_popcount(n) ==> ile bitow jest ustawionych w zmiennej n 
 
   //ZADANIA:
