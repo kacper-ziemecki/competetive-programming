@@ -57,6 +57,9 @@ void solve(){
     }
   }  
   cout << res.size() << endl;
+  for(auto el : res){
+    cout << el[0].first << "," << el[0].second << " | " << el[1].first << "," << el[1].second << endl;
+  }
 }
 
 int main()
