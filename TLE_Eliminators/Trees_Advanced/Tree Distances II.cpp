@@ -9,40 +9,44 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-int n,m;
+int n;
 int u,v;
-vector<vector<int>> adj;
-vector<int> vis;
+const int N = 2e5+1;
+vector<int> adj[N];
+ll subtree_size[N], ans[N];
 
-bool cycle(int u, int p){
-  vis[u] = -1;
+void calc_first_ans(int u, int p){
+  subtree_size[u] = 1;
   for(auto v : adj[u]){
-    if(v == p) continue;
-    if(vis[v] == -1) return true;
-    if(!vis[v] && cycle(v,u)) return true;
+    if(v != p){
+      calc_first_ans(v,u);
+      subtree_size[u] += subtree_size[v];
+      ans[u] += ans[v] + subtree_size[v];
+    }
   }
-  vis[u] = 1;
-  return false;
 }
 
+void calc_every_ans(int u, int p, ll answer){
+  ans[u] = answer;
+  for(auto v : adj[u]){
+    if(v != p){
+      // dbg(u,v);
+      // dbg(ans[v], answer, subtree_size[v], n);
+      answer = ans[v] + (ans[u] - (ans[v]+subtree_size[v]) + (n-subtree_size[v]));
+      calc_every_ans(v,u,answer);
+    }
+  }
+}
 void solve(){
-  cin >> n >> m;
-  adj.resize(n+1);
-  for(int i = 0; i <= n; i++) adj[i].clear();
-  vis.assign(n+1, 0);
-  for(int i = 0; i < m; i++){
+  cin >> n;
+  for(int i = 0; i < n-1; i++){
     cin >> u >> v;
     adj[u].pb(v);
     adj[v].pb(u);
   }
-  for(int i = 1; i <= n; i++){
-    if(!vis[i] && cycle(i,i)){
-      cout << "NIE\n";
-      return;
-    }
-  }
-  cout << "TAK 1\n";
-  for(int i = 1; i <= n; i++) cout << 1 << ' ';
+  calc_first_ans(1,1);
+  calc_every_ans(1,1,ans[1]);
+  for(int i = 1; i <= n; i++) cout << ans[i] << ' ';
   cout << endl;
 }
 
@@ -58,8 +62,6 @@ int main()
 //   freopen("../../out.out", "w", stdout);
 // #endif
 
-  int t;
-  cin >> t;
-  while(t--)
+  
   solve();
 }
