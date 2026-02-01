@@ -3,64 +3,54 @@ using namespace std;
 #define endl "\n"
 #define pb push_back
 #define ll long long
-#define hs unsigned long long
+#define ull unsigned long long
 #define ld long double
 void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-ll n,m,k;
-int u,v;
-string s;
-const int N = 1e3+1;
-pair<int,int> adj[N];
-ll dist[N];
-ll ile_do_cyklu, ile_ma_cykl, wierzcholek;
-int wynik, powtorzenia;
-
-bool dfs(int u, int idx, ll cnt=0){
-  if(idx == 0 && dist[u] != -1){ //mamy cykl
-    ile_do_cyklu = dist[u];
-    ile_ma_cykl = cnt-dist[u];
-    wierzcholek = u;
-    return true;
-  }
-  if(idx == 0) dist[u] = cnt;
-  if((s[idx] == 'L') && dfs(adj[u].first, (idx+1)%m, (idx==m-1 ? cnt+1 : cnt))) return true;
-  if((s[idx] == 'P') && dfs(adj[u].second, (idx+1)%m, (idx==m-1 ? cnt+1 : cnt))) return true;
-  return false;
-}
-void powtarzaj(int u, int idx, ll cnt=0){
-  if((idx == 0) && (cnt == powtorzenia)){
-    wynik = u;
-    return;
-  }
-  if(s[idx] == 'L') powtarzaj(adj[u].first, (idx+1)%m, (idx==m-1 ? cnt+1 : cnt));
-  if(s[idx] == 'P') powtarzaj(adj[u].second, (idx+1)%m, (idx==m-1 ? cnt+1 : cnt));
-}
+const int N = 1e5+1;
+const int M = 1e5+1;
+int n,m,q;
+int l,r;
+vector<int> grupy[M];
+vector<ll> pref[M];
+int lista[N];
 
 void solve(){
-  cin >> n >> m >> k;
-  for(int i = 1; i <= n; i++) dist[i] = -1;
-  for(int i = 1; i <= n; i++){
-    cin >> u >> v;
-    adj[i] = make_pair(u,v);
+  cin >> n >> m >> q; 
+  for(int i = 1; i <= m; i++){
+    grupy[i].clear();
+    pref[i].clear();
   }
-  cin >> s;
-  dfs(1,0);
-  // dbg(ile_do_cyklu, ile_ma_cykl, wierzcholek);
-  if(ile_do_cyklu >= k){
-    powtorzenia = k;
-    // dbg(powtorzenia);
-    powtarzaj(1,0);
-  } else{
-    k -= ile_do_cyklu;
-    k = k % ile_ma_cykl;
-    powtorzenia = k;
-    // dbg(powtorzenia);
-    powtarzaj(wierzcholek,0);
+  for(int i = 0; i < n; i++){
+    cin >> lista[i];
+    grupy[lista[i]].pb(i);
   }
-  cout << wynik << endl;
+  for(int i = 1; i <= m; i++){
+    for(int j = 0; j < grupy[i].size(); j++){
+      pref[i].pb(grupy[i][j] + (j-1 < 0 ? 0 : pref[i][j-1]));
+      // dbg(pref[i][j],grupy[i][j]);
+    }
+  }
+  for(int i = 0; i < q; i++){
+    cin >> l >> r;
+    ll res=0;
+    if(grupy[l].size() > grupy[r].size()) swap(l,r);
+    // dbg(l,r);
+    // lewo ma mniejsza grupe
+    for(int j = 0; j < grupy[l].size(); j++){
+      int idx = upper_bound(grupy[r].begin(), grupy[r].end(), grupy[l][j]) - grupy[r].begin();
+      // dbg(idx,grupy[l][j]);
+      ll suma_pref = (idx-1 < 0 ? 0 : pref[r][idx-1]);
+      ll suma_suf = pref[r][pref[r].size()-1] - (idx-1 < 0 ? 0 : pref[r][idx-1]);
+      int ile_przed = idx;
+      int ile_po = grupy[r].size()-idx;
+      // dbg(suma_pref, suma_suf);
+      res += ((ile_przed*grupy[l][j])-suma_pref)+(suma_suf-(ile_po*grupy[l][j]));
+    }
+    cout << res << endl;
+  }
 }
 
 int main()
@@ -75,5 +65,8 @@ int main()
 //   freopen("../../out.out", "w", stdout);
 // #endif
 
+  int t;
+  cin >> t;
+  while(t--)
   solve();
 }

@@ -10,6 +10,22 @@ int main(){
   // map<typ_klucza, typ_wartosci> nazwa_zmiennej;
   map<string,bool> mp;
 
+  vector<int> mapa(100,0);
+  mapa[3]=7;
+  vector<vector<int>> mapa1(100,0);
+  mapa1[1] = {1,6,3,0,5};
+  mapa1[2] = {7,4,6,34,34};
+
+  1 100 1 1 1 100 1000000
+  100000->1 100->2 1->4
+  vector<int> licznik(100000);
+  licznik[1] = 4;
+  licznik[100] = 2;
+  licznik[1000000] = 1;
+  map<int,int> licznik1;
+  licznik1[1] = 4;
+  licznik1[100] = 2;
+  licznik1[1000000] = 1;
   // indeksowanie oraz ustawianie warosci
   // klucz      wartosc
   mp["harry"] = true;
