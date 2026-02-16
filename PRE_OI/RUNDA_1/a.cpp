@@ -14,7 +14,7 @@ const int M = 1e5+1;
 int n,m,q;
 int l,r;
 vector<int> grupy[M];
-vector<ll> pref[M];
+vector<int> pref[M];
 int lista[N];
 
 void solve(){
@@ -35,15 +35,15 @@ void solve(){
   }
   for(int i = 0; i < q; i++){
     cin >> l >> r;
-    ll res=0;
+    int res=0;
     if(grupy[l].size() > grupy[r].size()) swap(l,r);
     // dbg(l,r);
     // lewo ma mniejsza grupe
     for(int j = 0; j < grupy[l].size(); j++){
       int idx = upper_bound(grupy[r].begin(), grupy[r].end(), grupy[l][j]) - grupy[r].begin();
       // dbg(idx,grupy[l][j]);
-      ll suma_pref = (idx-1 < 0 ? 0 : pref[r][idx-1]);
-      ll suma_suf = pref[r][pref[r].size()-1] - (idx-1 < 0 ? 0 : pref[r][idx-1]);
+      int suma_pref = (idx-1 < 0 ? 0 : pref[r][idx-1]);
+      int suma_suf = pref[r][pref[r].size()-1] - (idx-1 < 0 ? 0 : pref[r][idx-1]);
       int ile_przed = idx;
       int ile_po = grupy[r].size()-idx;
       // dbg(suma_pref, suma_suf);

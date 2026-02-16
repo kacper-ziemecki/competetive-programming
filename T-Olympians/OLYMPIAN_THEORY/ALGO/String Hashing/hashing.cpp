@@ -7,7 +7,8 @@ void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-const hs prime[] = {5586985605742039601,6889537187409766193};
+// const hs prime[] = {5586985605742039601,6889537187409766193};
+const hs prime[] = {1000000000000000003,5555500000000000003};
 hs hashS[2];
 hs hashT[2];
 string s,t;

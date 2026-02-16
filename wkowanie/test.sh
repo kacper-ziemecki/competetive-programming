@@ -1,5 +1,6 @@
 #!/bin/bash
 for((i=1;;i++))
+do
 	echo $i > seed
 	./generator < seed > test.in 
 	./brut < test.in > brut.out 

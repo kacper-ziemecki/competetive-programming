@@ -17,6 +17,7 @@ priority_queue<int,vector<int>,greater<>> pq;
 vector<int> res;
 map<vector<int>, vector<int>> dp;
 
+
 void solve(){
   cin >> n >> q;
   for(int i = 0; i < n; i++) cin >> lista[i];

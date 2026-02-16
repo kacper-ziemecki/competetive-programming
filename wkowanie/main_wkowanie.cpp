@@ -11,7 +11,7 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T){cout <
 #define dbg(...) cout << '(' << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
 int rnd(int a, int b){
-  return rand()%(b-a+1)+a;
+	return rand()%(b-a+1)+a;
 }
 
 void solve(){
@@ -19,16 +19,15 @@ void solve(){
 }
 
 int main(){
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-  freopen("./in.in", "r", stdin);
+	freopen("./in.in", "r", stdin);
 
-  int seed;
-  cin >> seed;
-  srand(seed);
+	int seed;
+	cin >> seed;
+	srand(seed);
 
-  solve();
-
+	solve();
 }
