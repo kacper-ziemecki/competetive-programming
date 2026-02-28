@@ -3,19 +3,14 @@ using namespace std;
 #define endl "\n"
 #define pb push_back
 #define ll long long
-#define hs unsigned long long
+#define ull unsigned long long
 #define ld long double
 void dbg_out() { cout << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cout << ' ' << H; dbg_out(T...); }
 #define dbg(...) cout << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-
 void solve(){
-  for(int i = 1; i < 10; i++){
-    for(int j = 1; j < 10; j++){
-       
-    }
-  }
+  
 }
 
 int main()
