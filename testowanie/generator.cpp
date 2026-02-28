@@ -15,17 +15,10 @@ int main(){
 	int seed; 
 	cin >> seed; 
 	srand(seed);
-	int n = rnd(2,30);
-	int m = rnd(2,30);
-	vector<string> lista(n, string(m, '.'));
+	int n = rnd(5,30);
+	cout << n << endl;
 	for(int i = 0; i < n; i++){
-		for(int j = 0; j < m; j++){
-			if(i == 0 && j == 0) continue;
-			if(i == n-1 && j == m-1) continue;
-			int prob = rnd(1,100);
-			if(prob < 30) lista[i][j] = 'X';
-		}
+		cout << rnd(1,10) << ' ';
 	}
-	cout << n << ' ' << m << endl;
-	for(auto el : lista) cout << el << endl;
+	cout << endl;
 }
